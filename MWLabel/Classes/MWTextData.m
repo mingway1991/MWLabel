@@ -8,6 +8,13 @@
 #import "MWTextData.h"
 @import CoreText;
 
+NSString *const kMWTextAttributeNameRange = @"range";
+NSString *const kMWTextAttributeNameKey = @"key";
+NSString *const kMWTextAttributeNameValue = @"value";
+
+NSString *const kMWLinkAttributeNameRange = @"range";
+NSString *const kMWLinkAttributeNameBlock = @"block";
+
 @interface MWTextData()
 {
     NSMutableArray<NSDictionary *> *_attrDicts;     //存放普通属性字典的数组
@@ -26,9 +33,9 @@
         _linkDicts = [NSMutableArray array];
         self.defaultColor = [UIColor blackColor];
         self.defaultFont = [UIFont systemFontOfSize:16.f];
-        self.character = 4.f;
-        self.lineSpacing = 10.f;
-        self.paragraphSpacing = 20.f;
+        self.characterSpacing = 4.f;
+        self.lineSpacing = 5.f;
+        self.paragraphSpacing = 10.f;
         [self setDefaultHeight];
     }
     return self;
@@ -60,8 +67,8 @@
     _defaultColor = defaultColor;
 }
 
-- (void)setCharacter:(CGFloat)character {
-    _character = character;
+- (void)setCharacterSpacing:(CGFloat)characterSpacing {
+    _characterSpacing = characterSpacing;
     [self setDefaultHeight];
 }
 
@@ -82,7 +89,7 @@
 }
 
 #pragma mark - 获取高度
-/* 获取高度 */
+/* 获取高度(最后一行原点y坐标加最后一行高度) */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth {
     if (_height >= 0) {
         return _height;
@@ -91,7 +98,7 @@
     CFMutableAttributedStringRef attributedString = [self getCFAttributedString];
     
     CGFloat total_height = 0;
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attributedString);
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
     CGRect drawingRect = CGRectMake(0, 0, maxWidth, maxHeight);
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, drawingRect);
@@ -99,7 +106,7 @@
     CGPathRelease(path);
     CFRelease(framesetter);
     
-    NSArray *linesArray = (NSArray *) CTFrameGetLines(textFrame);
+    NSArray *linesArray = (NSArray *)CTFrameGetLines(textFrame);
     
     CGPoint origins[[linesArray count]];
     CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
@@ -123,16 +130,58 @@
     return total_height;
 }
 
+/* 获取固定行数的高度 */
+- (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(CGFloat)maxLine {
+    CFMutableAttributedStringRef attributedString = [self getCFAttributedString];
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
+    CGFloat maxHeight = 10000000;//这里的高要设置足够大
+    CGRect drawingRect = CGRectMake(0, 0, maxWidth, maxHeight);
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathAddRect(path, NULL, drawingRect);
+    CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0), path, NULL);
+    CGPathRelease(path);
+    CFRelease(framesetter);
+    CFArrayRef lines = CTFrameGetLines(textFrame);
+    CGPoint lineOrigins[CFArrayGetCount(lines)];
+    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), lineOrigins);
+    
+    /******************
+     * 逐行lineHeight累加
+     ******************/
+    NSInteger lineNum = CFArrayGetCount(lines);
+    if (lineNum > maxLine) {
+        lineNum = maxLine;
+    }
+    CGFloat heightValue = 0;
+    for (NSInteger i = 0; i < lineNum; i++) {
+        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
+        CGFloat lineAscent;//上行行高
+        CGFloat lineDescent;//下行行高
+        CGFloat lineLeading;//行距
+        CGFloat lineHeight;//行高
+        //获取每行的高度
+        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
+        lineHeight = lineAscent +  fabs(lineDescent) + lineLeading;
+        heightValue = heightValue + lineHeight;
+    }
+    heightValue = ceilf(heightValue);
+    CFRelease(attributedString);
+    return heightValue;
+}
+
 #pragma mark - 添加属性
 /* 添加普通属性 */
-- (void)addAttributeType:(MWTextAttributeType)attributeType
-                   value:(id __nullable)value
-                   range:(NSRange)range {
+- (void)addTextAttributeType:(MWTextAttributeType)attributeType
+                       value:(id __nullable)value
+                       range:(NSRange)range {
     if (value) {
-        NSDictionary *attrDict = @{@"range": [NSValue valueWithRange:range], @"key":@(attributeType), @"value":value};
+        NSDictionary *attrDict = @{kMWTextAttributeNameRange: [NSValue valueWithRange:range],
+                                   kMWTextAttributeNameKey:@(attributeType),
+                                   kMWTextAttributeNameValue:value};
         [_attrDicts addObject:attrDict];
     } else {
-        NSDictionary *attrDict = @{@"range": [NSValue valueWithRange:range], @"key":@(attributeType)};
+        NSDictionary *attrDict = @{kMWTextAttributeNameRange: [NSValue valueWithRange:range],
+                                   kMWTextAttributeNameKey:@(attributeType)};
         [_attrDicts addObject:attrDict];
     }
     [self setDefaultHeight];
@@ -143,17 +192,18 @@
                         linkColor:(UIColor *)linkColor
                      hasUnderLine:(BOOL)hasUnderLine
                             range:(NSRange)range {
-    NSDictionary *attrDict = @{@"range": [NSValue valueWithRange:range], @"block":block};
+    NSDictionary *attrDict = @{kMWLinkAttributeNameRange: [NSValue valueWithRange:range],
+                               kMWLinkAttributeNameBlock:block};
     [_linkDicts addObject:attrDict];
-    [self addAttributeType:MWTextAttributeTypeColor value:linkColor range:range];
+    [self addTextAttributeType:MWTextAttributeTypeColor value:linkColor range:range];
     if (hasUnderLine) {
-        [self addAttributeType:MWTextAttributeTypeUnderLine value:nil range:range];
+        [self addTextAttributeType:MWTextAttributeTypeUnderLine value:nil range:range];
     }
     [self setDefaultHeight];
 }
 
 #pragma mark - 遍历属性
-- (void)enumerateAttrDictsUsingBlock:(void(^)(NSDictionary *attrDict, BOOL *stop))block {
+- (void)enumerateTextAttrDictsUsingBlock:(void(^)(NSDictionary *attrDict, BOOL *stop))block {
     [_attrDicts enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         block(obj, stop);
     }];
@@ -184,11 +234,11 @@
     CFRange totalRange = CFRangeMake(0, [_text length]);
     CFAttributedStringSetAttribute(attributedString,totalRange,kCTFontAttributeName,(__bridge CFTypeRef)(_defaultFont));
     CFAttributedStringSetAttribute(attributedString,totalRange,kCTForegroundColorAttributeName,(__bridge CFTypeRef)(_defaultColor));
-    [self enumerateAttrDictsUsingBlock:^(NSDictionary * _Nonnull attrDict, BOOL *stop) {
-        MWTextAttributeType type = [attrDict[@"key"] integerValue];
-        id value = attrDict[@"value"];
+    [self enumerateTextAttrDictsUsingBlock:^(NSDictionary * _Nonnull attrDict, BOOL *stop) {
+        MWTextAttributeType type = [attrDict[kMWTextAttributeNameKey] integerValue];
+        id value = attrDict[kMWTextAttributeNameValue];
         CFRangeMake(0, _text.length);
-        NSRange nsRange = [attrDict[@"range"] rangeValue];
+        NSRange nsRange = [attrDict[kMWTextAttributeNameRange] rangeValue];
         CFRange range = CFRangeMake(nsRange.location, nsRange.length);
         if (type == MWTextAttributeTypeFont) {
             CFAttributedStringSetAttribute(attributedString,range,kCTFontAttributeName,(__bridge CFTypeRef)(value));
@@ -205,7 +255,7 @@
     CFRange range = CFRangeMake(0, [_text length]);
     
     //设置字体间距
-    long number = _character;
+    long number = _characterSpacing;
     CFNumberRef num = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt8Type, &number);
     CFAttributedStringSetAttribute(attributedString, range, kCTKernAttributeName, num);
     CFRelease(num);

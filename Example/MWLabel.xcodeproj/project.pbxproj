@@ -22,6 +22,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		7A2FDA7E21366B21000A42AC /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FDA7D21366B21000A42AC /* TextCell.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		E4468B7D96B400BE4EA563C3 /* Pods_MWLabel_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C496C12BE6D8E20E57BD99 /* Pods_MWLabel_Tests.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,8 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		60C21627BB62ED91C78410B9 /* Pods_MWLabel_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MWLabel_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7A2FDA7C21366B21000A42AC /* TextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
+		7A2FDA7D21366B21000A42AC /* TextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
 		85C496C12BE6D8E20E57BD99 /* Pods_MWLabel_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MWLabel_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B3BA16AD0B291BE8CE11DFBA /* MWLabel.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MWLabel.podspec; path = ../MWLabel.podspec; sourceTree = "<group>"; };
@@ -140,6 +143,8 @@
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				7A2FDA7C21366B21000A42AC /* TextCell.h */,
+				7A2FDA7D21366B21000A42AC /* TextCell.m */,
 			);
 			name = "Example for MWLabel";
 			path = MWLabel;
@@ -405,6 +410,7 @@
 			files = (
 				6003F59E195388D20070C39A /* MWAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* MWViewController.m in Sources */,
+				7A2FDA7E21366B21000A42AC /* TextCell.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

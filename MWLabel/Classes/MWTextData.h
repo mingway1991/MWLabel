@@ -7,6 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXPORT NSString *const kMWTextAttributeNameRange;
+FOUNDATION_EXPORT NSString *const kMWTextAttributeNameKey;
+FOUNDATION_EXPORT NSString *const kMWTextAttributeNameValue;
+
+FOUNDATION_EXPORT NSString *const kMWLinkAttributeNameRange;
+FOUNDATION_EXPORT NSString *const kMWLinkAttributeNameBlock;
+
 typedef enum : NSUInteger {
     MWTextAttributeTypeFont,            //字体
     MWTextAttributeTypeColor,           //颜色
@@ -23,15 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *text;               //文本
 @property (nonatomic, strong) UIColor *defaultColor;                //默认颜色
 @property (nonatomic, strong) UIFont *defaultFont;                  //默认字体
-@property (nonatomic, assign) CGFloat character;                    //字间距
+@property (nonatomic, assign) CGFloat characterSpacing;             //字间距
 @property (nonatomic, assign) CGFloat lineSpacing;                  //行间距
 @property (nonatomic, assign) CGFloat paragraphSpacing;             //段落间距
 
 #pragma mark - 添加属性
 /* 添加普通属性 */
-- (void)addAttributeType:(MWTextAttributeType)attributeType
-                   value:(id __nullable)value
-                   range:(NSRange)range;
+- (void)addTextAttributeType:(MWTextAttributeType)attributeType
+                       value:(id __nullable)value
+                       range:(NSRange)range;
 /* 添加链接属性 */
 - (void)addLinkAttributeWithBlock:(ClickLinkBlock)block
                         linkColor:(UIColor *)linkColor
@@ -40,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 获取高度
 /* 获取高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth;
+/* 获取固定行数的高度，有误差 */
+- (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(CGFloat)maxLine;
 
 #pragma mark MWLabel使用，用户绘制以及计算点击链接
 /* 获取根绝配置生成的CF字符串 */

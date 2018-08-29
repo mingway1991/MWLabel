@@ -107,10 +107,10 @@
         if ([self isFrame:CTRunFrame containsPoint:location]) {
             //遍历link属性，查看点击字符是否在链接range
             [self.data enumerateLinkDictsUsingBlock:^(NSDictionary * _Nonnull linkDict, BOOL *stop) {
-                NSRange nsRange = [linkDict[@"range"] rangeValue];
+                NSRange nsRange = [linkDict[kMWLinkAttributeNameRange] rangeValue];
                 if ([self isIndex:i inRange:nsRange]) {
                     *stop = YES;
-                    ClickLinkBlock linkBlock = linkDict[@"block"];
+                    ClickLinkBlock linkBlock = linkDict[kMWLinkAttributeNameBlock];
                     linkBlock([self.data.text substringWithRange:nsRange], nsRange);
                 }
             }];
