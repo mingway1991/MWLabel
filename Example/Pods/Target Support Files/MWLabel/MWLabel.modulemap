@@ -1,0 +1,6 @@
+framework module MWLabel {
+  umbrella header "MWLabel-umbrella.h"
+
+  export *
+  module * { export * }
+}
