@@ -62,7 +62,7 @@
     CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[_data generateAttributedString];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
     if (!framesetter) {
-        CFRelease(path);
+        CGPathRelease(path);
         return;
     }
     if (_ctFrameRef) {
@@ -70,7 +70,7 @@
     }
     _ctFrameRef = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0),path,NULL);
     if (!_ctFrameRef) {
-        CFRelease(path);
+        CGPathRelease(path);
         CFRelease(framesetter);
         return;
     }
@@ -138,7 +138,7 @@
         CTFrameDraw(_ctFrameRef,context);
     }
     CFRelease(framesetter);
-    CFRelease(path);
+    CGPathRelease(path);
 }
 
 - (void)drawRect:(CGRect)rect {

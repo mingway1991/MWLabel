@@ -141,70 +141,43 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 /* 获取高度(最后一行原点y坐标加最后一行高度) */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth {
     if (_height < 0) {
-        CGFloat maxHeight = 1000000000;//这里的高要设置足够大
-        CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[self generateAttributedString];
-        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
-        CGRect drawingRect = CGRectMake(0, 0, maxWidth, maxHeight);
-        CGMutablePathRef path = CGPathCreateMutable();
-        CGPathAddRect(path, NULL, drawingRect);
-        CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0), path, NULL);
-        CGPathRelease(path);
-        CFRelease(framesetter);
-        NSArray *lines = (NSArray *)CTFrameGetLines(textFrame);
-        CGPoint origins[[lines count]];
-        CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
-        
-        CGFloat line_y = (CGFloat)origins[[lines count]-1].y;  //最后一行line的原点y坐标
-        
-        CGFloat lineAscent;
-        CGFloat lineDescent;
-        CGFloat lineLeading;
-        
-        CTLineRef line = (__bridge CTLineRef)(lines[lines.count-1]);
-        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-        _height = maxHeight - line_y + (CGFloat)lineDescent + 1;    //+1为了纠正descent转换成int小数点后舍去的值
-        CFRelease(textFrame);
-        _height = ceilf(_height);
+        _height = [self heightWithMaxWidth:maxWidth maxLine:10000000];
     }
     return _height;
 }
 
 /* 获取固定行数的高度 */
-- (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(CGFloat)maxLine {
+- (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(NSUInteger)maxLine {
+    
+    CGFloat maxHeight = 1000000000;//这里的高要设置足够大
     CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[self generateAttributedString];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
-    CGFloat maxHeight = 1000000000;//这里的高要设置足够大
     CGRect drawingRect = CGRectMake(0, 0, maxWidth, maxHeight);
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, drawingRect);
     CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0), path, NULL);
+    NSArray *lines = (NSArray *)CTFrameGetLines(textFrame);
+    CGPoint origins[[lines count]];
+    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
+    
+    NSUInteger lineNum = maxLine;
+    if (lineNum > [lines count]) {
+        lineNum = [lines count];
+    }
+    
+    CGFloat line_y = (CGFloat)origins[lineNum-1].y;  //最后一行line的原点y坐标
+    
+    CGFloat lineAscent;
+    CGFloat lineDescent;
+    CGFloat lineLeading;
+    
+    CTLineRef line = (__bridge CTLineRef)(lines[lineNum-1]);
+    CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
+    CGFloat height = maxHeight - line_y + (CGFloat)lineDescent + 2;    //+2，纠正误差
     CGPathRelease(path);
     CFRelease(framesetter);
-    CFArrayRef lines = CTFrameGetLines(textFrame);
-    CGPoint lineOrigins[CFArrayGetCount(lines)];
-    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), lineOrigins);
-    
-    /******************
-     * 逐行lineHeight累加
-     ******************/
-    NSInteger lineNum = CFArrayGetCount(lines);
-    if (lineNum > maxLine) {
-        lineNum = maxLine;
-    }
-    CGFloat heightValue = 0;
-    for (NSInteger i = 0; i < lineNum; i++) {
-        CTLineRef line = CFArrayGetValueAtIndex(lines, i);
-        CGFloat lineAscent;//上行行高
-        CGFloat lineDescent;//下行行高
-        CGFloat lineLeading;//行距
-        CGFloat lineHeight;//行高
-        //获取每行的高度
-        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-        lineHeight = lineAscent +  fabs(lineDescent) + lineLeading;
-        heightValue = heightValue + lineHeight;
-    }
-    heightValue = ceilf(heightValue);
-    return heightValue;
+    CFRelease(textFrame);
+    return ceilf(height);
 }
 
 #pragma mark - 添加属性

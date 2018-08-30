@@ -48,8 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 获取高度
 /* 获取高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth;
-/* 获取固定行数的高度，不准确 */
-- (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(CGFloat)maxLine;
+/* 获取固定行数的高度 */
+- (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(NSUInteger)maxLine;
 
 #pragma mark MWLabel使用，用户绘制以及计算点击链接
 /* 获取根绝配置生成的字符串 */
