@@ -10,7 +10,8 @@
 
 /**
  TODO:
- 1.复制黏贴
+ 1.按行数计算高度
+ 2.竖排，排版
  **/
 
 NS_ASSUME_NONNULL_BEGIN
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWLabel : UIView
 
 @property (nonatomic, strong, nullable) MWTextData *data;
+//支持长按复制，默认YES
+@property (nonatomic, assign) BOOL canLongPressToCopy;
 
 @end
 

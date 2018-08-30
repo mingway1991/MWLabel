@@ -26,6 +26,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.allowsSelection = NO;
     [self.view addSubview:self.tableView];
     
     _datas = [NSMutableArray array];

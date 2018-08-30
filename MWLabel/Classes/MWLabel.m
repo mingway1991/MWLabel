@@ -12,6 +12,7 @@
 @interface MWLabel()
 {
     CTFrameRef _ctFrameRef;
+    UIColor *_savedBackgroundColor;
 }
 
 @end
@@ -21,6 +22,9 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
+        [self attachTapHandler];
+        _canLongPressToCopy = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuItemHidden:)name:UIMenuControllerWillHideMenuNotification object:nil];
     }
     return self;
 }
@@ -29,6 +33,7 @@
     if (_ctFrameRef) {
         CFRelease(_ctFrameRef);
     }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setData:(MWTextData *)data {
@@ -240,6 +245,61 @@
     CTRunGetTypographicBounds(runCurrent, CFRangeMake(0, 0), &lineAscent, &lineDescent, NULL);
     CGFloat height = lineAscent + lineDescent;
     return CGRectMake(offsetX, offsetY, offsexX2 - offsetX, height);
+}
+
+#pragma mark - 复制
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action ==@selector(copy:)) {
+        return _canLongPressToCopy;
+    } else if (action ==@selector(paste:)) {
+        return NO;
+    } else if (action ==@selector(cut:)) {
+        return NO;
+    } else if (action ==@selector(delete:)) {
+        return NO;
+    }
+    return NO;
+}
+
+- (void)attachTapHandler {
+    self.userInteractionEnabled = YES;
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self addGestureRecognizer:longPress];
+}
+
+- (void)handleLongPress:(UIGestureRecognizer *)recognizer {
+    [self becomeFirstResponder];
+    UIMenuController *menu = [UIMenuController sharedMenuController];
+    [menu setTargetRect:self.frame inView:self.superview];
+    [menu setMenuVisible:YES animated:YES];
+    if (_canLongPressToCopy && !_savedBackgroundColor) {
+        //保存原始背景色
+        _savedBackgroundColor = self.backgroundColor;
+        self.backgroundColor = [UIColor colorWithRed:.8 green:.8 blue:.8 alpha:1];
+    }
+}
+
+- (void)copy:(nullable id)sender {
+    UIPasteboard *pboard = [UIPasteboard generalPasteboard];
+    pboard.string = _data.text;
+    //恢复原始背景色
+    if (_savedBackgroundColor) {
+        self.backgroundColor = _savedBackgroundColor;
+        _savedBackgroundColor = nil;
+    }
+}
+
+#pragma mark - mark Menu Hidden
+-(void)menuItemHidden:(id)sender{
+    //恢复原始背景色
+    if (_savedBackgroundColor) {
+        self.backgroundColor = _savedBackgroundColor;
+        _savedBackgroundColor = nil;
+    }
 }
 
 @end
