@@ -12,5 +12,6 @@
 @interface TextCell : UITableViewCell
 
 @property (nonatomic, strong) MWLabel *label;
+@property (nonatomic, strong) UILabel *uilabel;
 
 @end

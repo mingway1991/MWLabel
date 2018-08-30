@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat characterSpacing;             //字间距
 @property (nonatomic, assign) CGFloat lineSpacing;                  //行间距
 @property (nonatomic, assign) CGFloat paragraphSpacing;             //段落间距
+@property (nonatomic, assign) NSUInteger numberOfLines;             //最大行数，默认为0
 
 #pragma mark - 添加属性
 /* 添加普通属性 */
@@ -47,12 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 获取高度
 /* 获取高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth;
-/* 获取固定行数的高度，有误差 */
+/* 获取固定行数的高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(CGFloat)maxLine;
 
 #pragma mark MWLabel使用，用户绘制以及计算点击链接
-/* 获取根绝配置生成的CF字符串 */
-- (CFMutableAttributedStringRef)getCFAttributedString;
+/* 获取根绝配置生成的字符串 */
+- (NSMutableAttributedString *)generateAttributedString;
 /* 遍历链接属性 */
 - (void)enumerateLinkDictsUsingBlock:(void(^)(NSDictionary *linkDict, BOOL *stop))block;
 

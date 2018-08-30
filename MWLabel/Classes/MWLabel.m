@@ -20,7 +20,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -34,11 +34,11 @@
     [self setNeedsDisplay];
 }
 
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+- (void)drawTextInRect:(CGRect)rect {
     if (!_data) {
         return;
     }
+    //#####################前期准备#################################
     //初始化一个画布
     CGContextRef context = UIGraphicsGetCurrentContext();
 #ifdef TARGET_OS_IPHONE
@@ -52,19 +52,91 @@
     CGMutablePathRef path = CGPathCreateMutable();
     //创建一个矩形文本区域
     CGPathAddRect(path, NULL, self.bounds);
-    //获取组装好的CFMutableAttributedStringRef
-    CFMutableAttributedStringRef attributedString = [_data getCFAttributedString];
-    //通过多属性字符，可以得到一个文本显示范围的工厂对象，我们最后渲染文本对象是通过这个工厂对象进行的。
+    CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[_data generateAttributedString];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
-    //attrString 完成使命可以休息了
-    CFRelease(attributedString);
-    //创建一个有文本内容的范围
+    if (!framesetter) {
+        CFRelease(path);
+        return;
+    }
+    if (_ctFrameRef) {
+        CFRelease(_ctFrameRef);
+    }
     _ctFrameRef = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0),path,NULL);
-    //把内容显示在给定的文本范围内；
-    CTFrameDraw(_ctFrameRef,context);
-    //完成任务就把我们创建的对象回收掉，内存宝贵，不用了就回收，这是好习惯。
+    if (!_ctFrameRef) {
+        CFRelease(path);
+        CFRelease(framesetter);
+        return;
+    }
+    //#######################开始绘制内容################################
+    CFArrayRef ctLines = CTFrameGetLines(_ctFrameRef);
+    CFIndex numberOfLines = CFArrayGetCount(ctLines);
+    if (_data.numberOfLines > 0 && numberOfLines > _data.numberOfLines) {
+        numberOfLines = _data.numberOfLines;
+    }
+    CGPoint lineOrigins[CFArrayGetCount(ctLines)];
+    CTFrameGetLineOrigins(_ctFrameRef, CFRangeMake(0, 0), lineOrigins);
+    
+    //给定的高度
+    CGFloat curHeight = rect.size.height;
+    //实际展示需要的高度
+    CGFloat totalHeight = [_data heightWithMaxWidth:rect.size.width];
+    
+    if (_data.numberOfLines > 0 || curHeight < totalHeight) {
+        //如果给定的高度不满足需要的高度，则开启逐行绘制
+        for (int i = 0 ; i < numberOfLines; i++) {
+            //逐行绘制
+            CTLineRef line = CFArrayGetValueAtIndex(ctLines, i);
+            CGContextSetTextPosition(context, lineOrigins[i].x, lineOrigins[i].y);
+            if (i == numberOfLines - 1) {
+                //判断最后一行，加省略号
+                CFRange lastLineRange = CTLineGetStringRange(line);
+                if (lastLineRange.location + lastLineRange.length < _data.text.length) {
+                    CTLineTruncationType truncationType = kCTLineTruncationEnd;
+                    //加省略号的位置
+                    NSUInteger truncationAttributePosition = lastLineRange.location + lastLineRange.length - 1;
+                    //获取省略号位置的字符串属性
+                    NSDictionary *tokenAttributes = [(__bridge NSAttributedString *)attributedString attributesAtIndex:truncationAttributePosition
+                                                                         effectiveRange:NULL];
+                    //初始化省略号的属性字符串
+                    NSAttributedString *tokenString = [[NSAttributedString alloc] initWithString:@"..."
+                                                                                      attributes:tokenAttributes];
+                    //创建一行
+                    CTLineRef truncationToken = CTLineCreateWithAttributedString((CFAttributedStringRef)tokenString);
+                    NSMutableAttributedString *truncationString = [[(__bridge NSAttributedString *)attributedString attributedSubstringFromRange:NSMakeRange(lastLineRange.location, lastLineRange.length)] mutableCopy];
+                    if (lastLineRange.length > 0) {
+                        [truncationString deleteCharactersInRange:NSMakeRange(lastLineRange.length - 1, 1)];
+                    }
+                    [truncationString appendAttributedString:tokenString];
+
+                    //创建省略号的行
+                    CTLineRef truncationLine = CTLineCreateWithAttributedString((CFAttributedStringRef)truncationString);
+                    // 在省略号行的末尾加上省略号
+                    CTLineRef truncatedLine = CTLineCreateTruncatedLine(truncationLine, rect.size.width, truncationType, truncationToken);
+                    if (!truncatedLine) {
+                        // If the line is not as wide as the truncationToken, truncatedLine is NULL
+                        truncatedLine = CFRetain(truncationToken);
+                    }
+                    CFRelease(truncationLine);//CF得自己释放，ARC的不会释放
+                    CFRelease(truncationToken);
+
+                    CTLineDraw(truncatedLine, context);
+                    CFRelease(truncatedLine);
+                }
+            } else {
+                CTLineDraw(line, context);
+            }
+        }
+    } else {
+        //如果给定的高度大于等于需要的高度，那就不需要考虑被截断的问题，则直接使用frame绘制
+        CTFrameDraw(_ctFrameRef,context);
+    }
     CFRelease(framesetter);
     CFRelease(path);
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    [self drawTextInRect:rect];
 }
 
 #pragma mark - Touch
@@ -100,6 +172,9 @@
                 lineNum = j;
                 break;
             }
+        }
+        if (lines.count <= lineNum) {
+            return;
         }
         CTLineRef line = (__bridge CTLineRef)lines[lineNum];
         CGPoint origin = origins[lineNum];
