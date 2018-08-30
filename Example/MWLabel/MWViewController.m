@@ -43,6 +43,9 @@
         [data addLinkAttributeWithBlock:^(NSString *linkString, NSRange range) {
             NSLog(@"test2 %@", linkString);
         } linkColor:[UIColor blueColor] hasUnderLine:NO range:NSMakeRange(5, 5)];
+        [data addLinkAttributeWithBlock:^(NSString *linkString, NSRange range) {
+            NSLog(@"test3 %@", linkString);
+        } linkColor:[UIColor blueColor] hasUnderLine:NO range:NSMakeRange(105, 5)];
         [_datas addObject:data];
     }
 }

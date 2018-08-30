@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MWLabel : UIView
 
-@property (nonatomic, copy, nullable) MWTextData *data;
+@property (nonatomic, strong, nullable) MWTextData *data;
 
 @end
 

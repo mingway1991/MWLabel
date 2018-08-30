@@ -26,7 +26,9 @@
 }
 
 - (void)dealloc {
-    CFRelease(_ctFrameRef);
+    if (_ctFrameRef) {
+        CFRelease(_ctFrameRef);
+    }
 }
 
 - (void)setData:(MWTextData *)data {

@@ -26,6 +26,10 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 @end
 
 @implementation MWTextData
+/*get和set方法都重写，需要@synthesize。
+因为如果同时重写了getter和setter方法，那么系统就不会帮你自动生成这个成员变量，所以需要手动声明这个成员变量。
+ */
+@synthesize text = _text;
 
 - (instancetype)init {
     self = [super init];
@@ -43,17 +47,50 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     return self;
 }
 
+#pragma mark - Copying
 - (instancetype)copyWithZone:(NSZone *)zone{
     MWTextData *data = [[[self class] allocWithZone:zone] init];
-    data.text = self.text;
-    data.defaultFont  = self.defaultFont;
-    data.defaultColor  = self.defaultColor;
+    data.text = _text;
+    data.defaultFont  = _defaultFont;
+    data.defaultColor  = _defaultColor;
     //未公开的成员
     data->_attrDicts = _attrDicts;
     data->_linkDicts = _linkDicts;
     data->_height = _height;
     data->_attributedString = _attributedString;
     return data;
+}
+
+#pragma mark - Coding
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super init]){
+        _text = [aDecoder decodeObjectForKey:@"text"];
+        _defaultFont = [aDecoder decodeObjectForKey:@"defaultFont"];
+        _defaultColor = [aDecoder decodeObjectForKey:@"defaultColor"];
+        _attrDicts = [aDecoder decodeObjectForKey:@"attrDicts"];
+        _linkDicts = [aDecoder decodeObjectForKey:@"linkDicts"];
+        _height = [aDecoder decodeIntegerForKey:@"height"];
+        _attributedString = [aDecoder decodeObjectForKey:@"attributedString"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_text forKey:@"text"];
+    [aCoder encodeObject:_defaultFont forKey:@"defaultFont"];
+    [aCoder encodeObject:_defaultColor forKey:@"defaultColor"];
+    [aCoder encodeObject:_attrDicts forKey:@"attrDicts"];
+    [aCoder encodeObject:_linkDicts forKey:@"linkDicts"];
+    [aCoder encodeInteger:_height forKey:@"height"];
+    [aCoder encodeObject:_attributedString forKey:@"attributedString"];
+}
+
+#pragma mark - Getters
+- (NSString *)text {
+    if (!_text) {
+        return @"";
+    }
+    return _text;
 }
 
 #pragma mark - Setters
@@ -92,7 +129,8 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     [self resetStoreValue];
 }
 
-#pragma mark - 设置默认高度
+#pragma mark - 清空保存的内容，重新计算或生成
+/* 清空保存的内容，重新计算或生成 */
 - (void)resetStoreValue {
     //代表没有计算过高度，需重新计算
     _height = -1.f;
@@ -218,7 +256,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 #pragma mark - 生成AttributedString
 - (NSMutableAttributedString *)generateAttributedString {
     if (!_attributedString) {
-        _attributedString = [[NSMutableAttributedString alloc] initWithString:_text];
+        _attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
         //添加属性
         [self configTextAttrDictWithAttributedString:_attributedString];
         //布局样式
@@ -229,13 +267,14 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 
 /* 设置属性字典样式 */
 - (void)configTextAttrDictWithAttributedString:(NSMutableAttributedString *)attributedString {
-    NSRange totalRange = NSMakeRange(0, [_text length]);
+    NSRange totalRange = NSMakeRange(0, [self.text length]);
     [attributedString addAttribute:NSFontAttributeName value:_defaultFont range:totalRange];
     [attributedString addAttribute:NSForegroundColorAttributeName value:_defaultColor range:totalRange];
     [self enumerateTextAttrDictsUsingBlock:^(NSDictionary * _Nonnull attrDict, BOOL *stop) {
         MWTextAttributeType type = [attrDict[kMWTextAttributeNameKey] integerValue];
         id value = attrDict[kMWTextAttributeNameValue];
         NSRange range = [attrDict[kMWTextAttributeNameRange] rangeValue];
+        NSCAssert(range.location+range.length <= [self.text length], @"range越界");
         if (type == MWTextAttributeTypeFont) {
             [attributedString addAttribute:NSFontAttributeName value:value range:range];
         } else if (type == MWTextAttributeTypeColor) {
@@ -248,7 +287,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 
 /* 设置布局样式 */
 - (void)configParagraphWithAttributedString:(NSMutableAttributedString *)attributedString {
-    NSRange range = NSMakeRange(0, [_text length]);
+    NSRange range = NSMakeRange(0, [self.text length]);
     
     //设置字体间距
     [attributedString addAttribute:NSKernAttributeName value:@(_characterSpacing) range:range];

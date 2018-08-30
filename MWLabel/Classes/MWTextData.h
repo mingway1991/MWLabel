@@ -24,7 +24,7 @@ typedef void(^ClickLinkBlock)(NSString *linkString, NSRange range);
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWTextData : NSObject <NSCopying>
+@interface MWTextData : NSObject <NSCopying, NSCoding>
 
 /* 文本 */
 @property (nonatomic, copy, nullable) NSString *text;               //文本
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 获取高度
 /* 获取高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth;
-/* 获取固定行数的高度 */
+/* 获取固定行数的高度，不准确 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(CGFloat)maxLine;
 
 #pragma mark MWLabel使用，用户绘制以及计算点击链接
