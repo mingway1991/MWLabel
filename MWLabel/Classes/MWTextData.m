@@ -39,8 +39,8 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         _defaultColor = [UIColor blackColor];
         _defaultFont = [UIFont systemFontOfSize:16.f];
         _characterSpacing = 1.f;
-        _lineSpacing = 2.f;
-        _paragraphSpacing = 10.f;
+        _lineSpacing = 4.f;
+        _paragraphSpacing = 4.f;
         _numberOfLines = 0;
         [self resetStoreValue];
     }
@@ -148,32 +148,37 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 
 /* 获取固定行数的高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(NSUInteger)maxLine {
-    
+    if (maxLine <= 0) {
+        return 0;
+    }
+    //坐标系原点，iOS中在左上角，所以是用最大高度减去最后一行的原点，加上
     CGFloat maxHeight = 1000000000;//这里的高要设置足够大
     CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[self generateAttributedString];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
     CGRect drawingRect = CGRectMake(0, 0, maxWidth, maxHeight);
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathAddRect(path, NULL, drawingRect);
-    CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0,0), path, NULL);
+    CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0, 0), path, NULL);
     NSArray *lines = (NSArray *)CTFrameGetLines(textFrame);
-    CGPoint origins[[lines count]];
-    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
     
     NSUInteger lineNum = maxLine;
     if (lineNum > [lines count]) {
         lineNum = [lines count];
     }
     
-    CGFloat line_y = (CGFloat)origins[lineNum-1].y;  //最后一行line的原点y坐标
+    CGPoint origins[[lines count]];
+    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, lineNum), origins);
+    
+    CGFloat line_y = origins[lineNum-1].y;  //最后一行line的原点y坐标
     
     CGFloat lineAscent;
     CGFloat lineDescent;
     CGFloat lineLeading;
     
     CTLineRef line = (__bridge CTLineRef)(lines[lineNum-1]);
+    
     CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-    CGFloat height = maxHeight - line_y + (CGFloat)lineDescent + 2;    //+2，纠正误差
+    CGFloat height = maxHeight - line_y + ceilf(lineDescent+lineLeading) + 2;
     CGPathRelease(path);
     CFRelease(framesetter);
     CFRelease(textFrame);
@@ -270,6 +275,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     paragraphStyle.alignment = NSTextAlignmentJustified;
     paragraphStyle.lineSpacing = _lineSpacing;
     paragraphStyle.paragraphSpacing = _paragraphSpacing;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
 }

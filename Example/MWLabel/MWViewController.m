@@ -38,6 +38,7 @@
         [data addTextAttributeType:MWTextAttributeTypeFont value:[UIFont systemFontOfSize:14.f] range:NSMakeRange(0, 1)];
         [data addTextAttributeType:MWTextAttributeTypeFont value:[UIFont systemFontOfSize:20.f] range:NSMakeRange(1, 1)];
         [data addTextAttributeType:MWTextAttributeTypeFont value:[UIFont systemFontOfSize:20.f] range:NSMakeRange(30, 1)];
+        [data addTextAttributeType:MWTextAttributeTypeFont value:[UIFont systemFontOfSize:20.f] range:NSMakeRange(80, 1)];
         [data addLinkAttributeWithBlock:^(NSString *linkString, NSRange range) {
             NSLog(@"test1 %@", linkString);
         } linkColor:[UIColor redColor] hasUnderLine:YES range:NSMakeRange(0, 5)];
@@ -61,7 +62,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [_datas[indexPath.row] heightWithMaxWidth:[UIScreen mainScreen].bounds.size.width maxLine:5];
+    return [_datas[indexPath.row] heightWithMaxWidth:[UIScreen mainScreen].bounds.size.width maxLine:1];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -82,7 +82,6 @@
     }
     CGPoint lineOrigins[CFArrayGetCount(ctLines)];
     CTFrameGetLineOrigins(_ctFrameRef, CFRangeMake(0, 0), lineOrigins);
-    
     //给定的高度
     CGFloat curHeight = rect.size.height;
     //实际展示需要的高度
