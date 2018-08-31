@@ -48,7 +48,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 }
 
 #pragma mark - Copying
-- (instancetype)copyWithZone:(NSZone *)zone{
+- (instancetype)copyWithZone:(NSZone *)zone {
     MWTextData *data = [[[self class] allocWithZone:zone] init];
     data.text = _text;
     data.defaultFont  = _defaultFont;
@@ -165,7 +165,12 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     if (lineNum > [lines count]) {
         lineNum = [lines count];
     }
-    
+    if (lineNum <= 0) {
+        CGPathRelease(path);
+        CFRelease(framesetter);
+        CFRelease(textFrame);
+        return 0;
+    }
     CGPoint origins[[lines count]];
     CTFrameGetLineOrigins(textFrame, CFRangeMake(0, lineNum), origins);
     
