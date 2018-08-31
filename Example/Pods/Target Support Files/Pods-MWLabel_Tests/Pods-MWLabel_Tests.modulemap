@@ -1,6 +1,0 @@
-framework module Pods_MWLabel_Tests {
-  umbrella header "Pods-MWLabel_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -11,20 +11,19 @@
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
-		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
-		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
-		6003F59E195388D20070C39A /* MWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* MWAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* MWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* MWViewController.m */; };
-		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
-		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
-		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
-		7A2FDA7E21366B21000A42AC /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A2FDA7D21366B21000A42AC /* TextCell.m */; };
-		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		E4468B7D96B400BE4EA563C3 /* Pods_MWLabel_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C496C12BE6D8E20E57BD99 /* Pods_MWLabel_Tests.framework */; };
+		7AB068BA21390BF1006EBB10 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7AB068B721390BF1006EBB10 /* README.md */; };
+		7AB068BB21390BF1006EBB10 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7AB068B821390BF1006EBB10 /* LICENSE */; };
+		7AB068BC21390BF1006EBB10 /* MWLabel.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7AB068B921390BF1006EBB10 /* MWLabel.podspec */; };
+		7AB068C121390C0C006EBB10 /* MWAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB068BE21390C0C006EBB10 /* MWAppDelegate.m */; };
+		7AB068C221390C0C006EBB10 /* MWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB068BF21390C0C006EBB10 /* MWViewController.m */; };
+		7AB068C521390C18006EBB10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AB068C321390C18006EBB10 /* Main.storyboard */; };
+		7AB068C721390C24006EBB10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AB068C621390C24006EBB10 /* Images.xcassets */; };
+		7AB068CA21390C30006EBB10 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB068C821390C30006EBB10 /* TextCell.m */; };
+		7AB068CE21390C46006EBB10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB068CB21390C46006EBB10 /* main.m */; };
+		7AB068CF21390C46006EBB10 /* MWLabel-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AB068CD21390C46006EBB10 /* MWLabel-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,38 +37,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		155A2158F01F2BE005AEE783 /* Pods-MWLabel_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MWLabel_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MWLabel_Tests/Pods-MWLabel_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		15855E4F7B071C447B6873D7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		1BE78DD5F1F7943443EACA65 /* Pods-MWLabel_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MWLabel_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MWLabel_Tests/Pods-MWLabel_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D7830973BD9651C1925DD42 /* Pods-MWLabel_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MWLabel_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-MWLabel_Example/Pods-MWLabel_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* MWLabel_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MWLabel_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		6003F595195388D20070C39A /* MWLabel-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MWLabel-Info.plist"; sourceTree = "<group>"; };
-		6003F597195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F599195388D20070C39A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6003F59B195388D20070C39A /* MWLabel-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MWLabel-Prefix.pch"; sourceTree = "<group>"; };
-		6003F59C195388D20070C39A /* MWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWAppDelegate.h; sourceTree = "<group>"; };
-		6003F59D195388D20070C39A /* MWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* MWViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MWViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* MWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MWViewController.m; sourceTree = "<group>"; };
-		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* MWLabel_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MWLabel_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
-		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		60C21627BB62ED91C78410B9 /* Pods_MWLabel_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MWLabel_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7A2FDA7C21366B21000A42AC /* TextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
-		7A2FDA7D21366B21000A42AC /* TextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
+		7AB068B721390BF1006EBB10 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7AB068B821390BF1006EBB10 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7AB068B921390BF1006EBB10 /* MWLabel.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MWLabel.podspec; sourceTree = "<group>"; };
+		7AB068BD21390C0C006EBB10 /* MWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWViewController.h; path = MWLabelDemo/MWViewController.h; sourceTree = SOURCE_ROOT; };
+		7AB068BE21390C0C006EBB10 /* MWAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWAppDelegate.m; path = MWLabelDemo/MWAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		7AB068BF21390C0C006EBB10 /* MWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWViewController.m; path = MWLabelDemo/MWViewController.m; sourceTree = SOURCE_ROOT; };
+		7AB068C021390C0C006EBB10 /* MWAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWAppDelegate.h; path = MWLabelDemo/MWAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		7AB068C421390C18006EBB10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MWLabelDemo/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		7AB068C621390C24006EBB10 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MWLabelDemo/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		7AB068C821390C30006EBB10 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextCell.m; path = MWLabelDemo/TextCell.m; sourceTree = SOURCE_ROOT; };
+		7AB068C921390C30006EBB10 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextCell.h; path = MWLabelDemo/TextCell.h; sourceTree = SOURCE_ROOT; };
+		7AB068CB21390C46006EBB10 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MWLabelDemo/main.m; sourceTree = SOURCE_ROOT; };
+		7AB068CC21390C46006EBB10 /* MWLabel-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MWLabel-Prefix.pch"; path = "MWLabelDemo/MWLabel-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		7AB068CD21390C46006EBB10 /* MWLabel-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "MWLabel-Info.plist"; path = "MWLabelDemo/MWLabel-Info.plist"; sourceTree = SOURCE_ROOT; };
 		85C496C12BE6D8E20E57BD99 /* Pods_MWLabel_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MWLabel_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B3BA16AD0B291BE8CE11DFBA /* MWLabel.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = MWLabel.podspec; path = ../MWLabel.podspec; sourceTree = "<group>"; };
 		D4950DDDDF660B7C5F9AA79E /* Pods-MWLabel_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MWLabel_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MWLabel_Example/Pods-MWLabel_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		E0316D51F29261A86B74BBDD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +82,6 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				E4468B7D96B400BE4EA563C3 /* Pods_MWLabel_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,7 +93,6 @@
 			children = (
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for MWLabel */,
-				6003F5B5195388D20070C39A /* Tests */,
 				6003F58C195388D20070C39A /* Frameworks */,
 				6003F58B195388D20070C39A /* Products */,
 				DB86C1C75D86F319D7C873EC /* Pods */,
@@ -135,16 +124,15 @@
 		6003F593195388D20070C39A /* Example for MWLabel */ = {
 			isa = PBXGroup;
 			children = (
-				6003F59C195388D20070C39A /* MWAppDelegate.h */,
-				6003F59D195388D20070C39A /* MWAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* MWViewController.h */,
-				6003F5A6195388D20070C39A /* MWViewController.m */,
-				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
-				6003F5A8195388D20070C39A /* Images.xcassets */,
+				7AB068C921390C30006EBB10 /* TextCell.h */,
+				7AB068C821390C30006EBB10 /* TextCell.m */,
+				7AB068C621390C24006EBB10 /* Images.xcassets */,
+				7AB068C321390C18006EBB10 /* Main.storyboard */,
+				7AB068C021390C0C006EBB10 /* MWAppDelegate.h */,
+				7AB068BE21390C0C006EBB10 /* MWAppDelegate.m */,
+				7AB068BD21390C0C006EBB10 /* MWViewController.h */,
+				7AB068BF21390C0C006EBB10 /* MWViewController.m */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				7A2FDA7C21366B21000A42AC /* TextCell.h */,
-				7A2FDA7D21366B21000A42AC /* TextCell.m */,
 			);
 			name = "Example for MWLabel";
 			path = MWLabel;
@@ -153,29 +141,9 @@
 		6003F594195388D20070C39A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6003F595195388D20070C39A /* MWLabel-Info.plist */,
-				6003F596195388D20070C39A /* InfoPlist.strings */,
-				6003F599195388D20070C39A /* main.m */,
-				6003F59B195388D20070C39A /* MWLabel-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		6003F5B5195388D20070C39A /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				6003F5BB195388D20070C39A /* Tests.m */,
-				6003F5B6195388D20070C39A /* Supporting Files */,
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
-		6003F5B6195388D20070C39A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6003F5B7195388D20070C39A /* Tests-Info.plist */,
-				6003F5B8195388D20070C39A /* InfoPlist.strings */,
-				606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */,
+				7AB068CB21390C46006EBB10 /* main.m */,
+				7AB068CD21390C46006EBB10 /* MWLabel-Info.plist */,
+				7AB068CC21390C46006EBB10 /* MWLabel-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -183,9 +151,9 @@
 		60FF7A9C1954A5C5007DD14C /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				B3BA16AD0B291BE8CE11DFBA /* MWLabel.podspec */,
-				15855E4F7B071C447B6873D7 /* README.md */,
-				E0316D51F29261A86B74BBDD /* LICENSE */,
+				7AB068B821390BF1006EBB10 /* LICENSE */,
+				7AB068B921390BF1006EBB10 /* MWLabel.podspec */,
+				7AB068B721390BF1006EBB10 /* README.md */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
@@ -195,8 +163,6 @@
 			children = (
 				D4950DDDDF660B7C5F9AA79E /* Pods-MWLabel_Example.debug.xcconfig */,
 				4D7830973BD9651C1925DD42 /* Pods-MWLabel_Example.release.xcconfig */,
-				1BE78DD5F1F7943443EACA65 /* Pods-MWLabel_Tests.debug.xcconfig */,
-				155A2158F01F2BE005AEE783 /* Pods-MWLabel_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -228,12 +194,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6003F5C2195388D20070C39A /* Build configuration list for PBXNativeTarget "MWLabel_Tests" */;
 			buildPhases = (
-				ED250A21A0B21F9B3C6E351F /* [CP] Check Pods Manifest.lock */,
 				6003F5AA195388D20070C39A /* Sources */,
 				6003F5AB195388D20070C39A /* Frameworks */,
 				6003F5AC195388D20070C39A /* Resources */,
-				79D30EC1AF60090C83F626E1 /* [CP] Embed Pods Frameworks */,
-				ECC7C7B47BA74593E41DBA3B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,10 +247,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
-				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
-				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
+				7AB068BB21390BF1006EBB10 /* LICENSE in Resources */,
+				7AB068C521390C18006EBB10 /* Main.storyboard in Resources */,
+				7AB068BC21390BF1006EBB10 /* MWLabel.podspec in Resources */,
+				7AB068CF21390C46006EBB10 /* MWLabel-Info.plist in Resources */,
+				7AB068C721390C24006EBB10 /* Images.xcassets in Resources */,
+				7AB068BA21390BF1006EBB10 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +260,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,21 +302,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MWLabel_Example/Pods-MWLabel_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		79D30EC1AF60090C83F626E1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MWLabel_Tests/Pods-MWLabel_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		EB5341B54A2822C6EEAB7948 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,39 +317,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MWLabel_Example/Pods-MWLabel_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		ECC7C7B47BA74593E41DBA3B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MWLabel_Tests/Pods-MWLabel_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ED250A21A0B21F9B3C6E351F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MWLabel_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -408,10 +324,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F59E195388D20070C39A /* MWAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* MWViewController.m in Sources */,
-				7A2FDA7E21366B21000A42AC /* TextCell.m in Sources */,
-				6003F59A195388D20070C39A /* main.m in Sources */,
+				7AB068C221390C0C006EBB10 /* MWViewController.m in Sources */,
+				7AB068CA21390C30006EBB10 /* TextCell.m in Sources */,
+				7AB068CE21390C46006EBB10 /* main.m in Sources */,
+				7AB068C121390C0C006EBB10 /* MWAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +335,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6003F5BC195388D20070C39A /* Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,28 +349,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6003F596195388D20070C39A /* InfoPlist.strings */ = {
+		7AB068C321390C18006EBB10 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6003F597195388D20070C39A /* en */,
+				7AB068C421390C18006EBB10 /* Base */,
 			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		6003F5B8195388D20070C39A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6003F5B9195388D20070C39A /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				71719F9E1E33DC2100824A3D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -540,8 +439,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MWLabel/MWLabel-Prefix.pch";
-				INFOPLIST_FILE = "MWLabel/MWLabel-Info.plist";
+				GCC_PREFIX_HEADER = "MWLabelDemo/MWLabel-Prefix.pch";
+				INFOPLIST_FILE = "MWLabelDemo/MWLabel-Info.plist";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -555,8 +454,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MWLabel/MWLabel-Prefix.pch";
-				INFOPLIST_FILE = "MWLabel/MWLabel-Info.plist";
+				GCC_PREFIX_HEADER = "MWLabelDemo/MWLabel-Prefix.pch";
+				INFOPLIST_FILE = "MWLabelDemo/MWLabel-Info.plist";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -566,7 +465,6 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1BE78DD5F1F7943443EACA65 /* Pods-MWLabel_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -590,7 +488,6 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 155A2158F01F2BE005AEE783 /* Pods-MWLabel_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
