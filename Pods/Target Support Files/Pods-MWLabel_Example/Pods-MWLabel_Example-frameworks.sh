@@ -67,21 +67,6 @@ install_dsym() {
   fi
 }
 
-# Copies the bcsymbolmaps of a vendored framework
-install_bcsymbolmaps() {
-  for file in `ls $1`; do
-    local file_path=$1"/"$file
-    chmod +r $file_path
-    echo $file_path
-    if [ "${file##*.}" == "bcsymbolmap" ]
-    then
-      local source=$file_path
-      echo "rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${source}" "${DWARF_DSYM_FOLDER_PATH}""
-      rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${source}" "${DWARF_DSYM_FOLDER_PATH}"
-    fi
-  done
-}
-
 # Signs a framework with the provided identity
 code_sign_if_enabled() {
   if [ -n "${EXPANDED_CODE_SIGN_IDENTITY}" -a "${CODE_SIGNING_REQUIRED}" != "NO" -a "${CODE_SIGNING_ALLOWED}" != "NO" ]; then

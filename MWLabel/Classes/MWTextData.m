@@ -39,9 +39,9 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         _defaultColor = [UIColor blackColor];
         _defaultFont = [UIFont systemFontOfSize:16.f];
         _characterSpacing = 1.f;
-        _lineSpacing = 4.f;
-        _paragraphSpacing = 4.f;
-        _numberOfLines = 0;
+        _lineSpacing = 2.f;
+        _paragraphSpacing = 2.f;
+        _numberOfLines = 1;
         [self resetStoreValue];
     }
     return self;
@@ -280,7 +280,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     paragraphStyle.alignment = NSTextAlignmentJustified;
     paragraphStyle.lineSpacing = _lineSpacing;
     paragraphStyle.paragraphSpacing = _paragraphSpacing;
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     
     [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
 }

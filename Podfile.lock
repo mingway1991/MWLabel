@@ -1,5 +1,5 @@
 PODS:
-  - MWLabel (0.1.0)
+  - MWLabel (0.1.1)
 
 DEPENDENCIES:
   - MWLabel (from `MWLabel.podspec`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: MWLabel.podspec
 
 SPEC CHECKSUMS:
-  MWLabel: 9fca37d578e5a0612000c713db31b38cd70c1b19
+  MWLabel: dc02fc4a89a8f19c0a303a6e59f3ca2f92435c4a
 
 PODFILE CHECKSUM: e510b519f8643e0825bbb9baadf41c97956bcf94
 

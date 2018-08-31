@@ -62,7 +62,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [_datas[indexPath.row] heightWithMaxWidth:[UIScreen mainScreen].bounds.size.width maxLine:1];
+    return [_datas[indexPath.row] heightWithMaxWidth:[UIScreen mainScreen].bounds.size.width maxLine:10];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

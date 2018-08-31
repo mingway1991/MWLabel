@@ -31,9 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIColor *defaultColor;                //默认颜色
 @property (nonatomic, strong) UIFont *defaultFont;                  //默认字体
 @property (nonatomic, assign) CGFloat characterSpacing;             //字间距，默认1
-@property (nonatomic, assign) CGFloat lineSpacing;                  //行间距，默认4
-@property (nonatomic, assign) CGFloat paragraphSpacing;             //段落间距，默认4
-@property (nonatomic, assign) NSUInteger numberOfLines;             //最大行数，默认为0
+@property (nonatomic, assign) CGFloat lineSpacing;                  //行间距，默认2
+@property (nonatomic, assign) CGFloat paragraphSpacing;             //段落间距，默认2
+@property (nonatomic, assign) NSUInteger numberOfLines;             //最大行数，默认为1
 
 #pragma mark - 添加属性
 /* 添加普通属性 */
