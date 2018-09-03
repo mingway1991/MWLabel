@@ -151,6 +151,14 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0, 0), path, NULL);
         NSArray *lines = (NSArray *)CTFrameGetLines(textFrame);
         
+        if (lines.count <= 0) {
+            //没有内容直接返回0
+            CGPathRelease(path);
+            CFRelease(framesetter);
+            CFRelease(textFrame);
+            return 0;
+        }
+        
         CGPoint origins[[lines count]];
         CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
         
@@ -191,7 +199,9 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     if (maxLine >= [lines count]) {
         return [self heightWithMaxWidth:maxWidth];
     }
+    
     if (maxLine <= 0) {
+        //没有内容直接返回0
         CGPathRelease(path);
         CFRelease(framesetter);
         CFRelease(textFrame);
