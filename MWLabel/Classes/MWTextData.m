@@ -171,7 +171,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         CTLineRef line = (__bridge CTLineRef)(lines[[lines count]-1]);
         
         CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-        _height = ceilf(maxHeight - line_y + lineDescent);
+        _height = maxHeight - line_y + ceilf(lineDescent);
         
         CGPathRelease(path);
         CFRelease(framesetter);
@@ -207,24 +207,25 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         CFRelease(textFrame);
         return 0;
     }
+    
     CGPoint origins[[lines count]];
     CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
-    
+
     CGFloat line_y = origins[maxLine-1].y;
-    
-    CGFloat lastLineAscent;
-    CGFloat lastLineDescent;
-    CGFloat lastLineLeading;
-    
-    //根据多次试验，lineDescent取最后一行的进行计算最为准确，不会出现计算误差的问题
+
+    CGFloat lineAscent;
+    CGFloat lineDescent;
+    CGFloat lineLeading;
+
     CTLineRef lastLine = (__bridge CTLineRef)(lines[[lines count]-1]);
-    
-    CTLineGetTypographicBounds(lastLine, &lastLineAscent, &lastLineDescent, &lastLineLeading);
-    CGFloat height = ceilf(maxHeight - line_y + lastLineDescent);
+
+    CTLineGetTypographicBounds(lastLine, &lineAscent, &lineDescent, &lineLeading);
+    CGFloat height = maxHeight - line_y + ceilf(2*lineDescent);
     
     CGPathRelease(path);
     CFRelease(framesetter);
     CFRelease(textFrame);
+    
     return height;
 }
 

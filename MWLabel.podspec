@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'MWLabel'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'A short description of MWLabel.'
   s.description      = '基于CoreText实现的Label'
 
