@@ -141,17 +141,44 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
 /* 获取高度(最后一行原点y坐标加最后一行高度) */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth {
     if (_height < 0) {
-        _height = [self heightWithMaxWidth:maxWidth maxLine:10000000];
+        //坐标系原点，iOS中在左上角，所以是用最大高度减去最后一行的原点，加上最后一行的高度
+        CGFloat maxHeight = 1000000000;//这里的高要设置足够大
+        CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[self generateAttributedString];
+        CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
+        CGRect drawingRect = CGRectMake(0, 0, maxWidth, maxHeight);
+        CGMutablePathRef path = CGPathCreateMutable();
+        CGPathAddRect(path, NULL, drawingRect);
+        CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0, 0), path, NULL);
+        NSArray *lines = (NSArray *)CTFrameGetLines(textFrame);
+        
+        CGPoint origins[[lines count]];
+        CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
+        
+        CGFloat line_y = origins[[lines count]-1].y;  //最后一行line的原点y坐标
+        
+        CGFloat lineAscent;
+        CGFloat lineDescent;
+        CGFloat lineLeading;
+        
+        CTLineRef line = (__bridge CTLineRef)(lines[[lines count]-1]);
+        
+        CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
+        _height = maxHeight - line_y + ceilf(lineDescent) + 1;
+        
+        CGPathRelease(path);
+        CFRelease(framesetter);
+        CFRelease(textFrame);
     }
     return _height;
 }
 
 /* 获取固定行数的高度 */
 - (CGFloat)heightWithMaxWidth:(CGFloat)maxWidth maxLine:(NSUInteger)maxLine {
+    //这里取需要计算行的下一行origin，然后减去这一行的lineAscent和lineLeading
     if (maxLine <= 0) {
         return 0;
     }
-    //坐标系原点，iOS中在左上角，所以是用最大高度减去最后一行的原点，加上
+    //坐标系原点，iOS中在左上角
     CGFloat maxHeight = 1000000000;//这里的高要设置足够大
     CFMutableAttributedStringRef attributedString = (__bridge CFMutableAttributedStringRef)[self generateAttributedString];
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString(attributedString);
@@ -161,29 +188,29 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     CTFrameRef textFrame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0, 0), path, NULL);
     NSArray *lines = (NSArray *)CTFrameGetLines(textFrame);
     
-    NSUInteger lineNum = maxLine;
-    if (lineNum > [lines count]) {
-        lineNum = [lines count];
+    if (maxLine >= [lines count]) {
+        return [self heightWithMaxWidth:maxWidth];
     }
-    if (lineNum <= 0) {
+    if (maxLine <= 0) {
         CGPathRelease(path);
         CFRelease(framesetter);
         CFRelease(textFrame);
         return 0;
     }
     CGPoint origins[[lines count]];
-    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, lineNum), origins);
+    CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
     
-    CGFloat line_y = origins[lineNum-1].y;  //最后一行line的原点y坐标
+    CGFloat line_y = origins[maxLine].y;
     
     CGFloat lineAscent;
     CGFloat lineDescent;
     CGFloat lineLeading;
     
-    CTLineRef line = (__bridge CTLineRef)(lines[lineNum-1]);
+    CTLineRef line = (__bridge CTLineRef)(lines[maxLine]);
     
     CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-    CGFloat height = maxHeight - line_y + ceilf(lineDescent+lineLeading) + 2;
+    CGFloat height = maxHeight - line_y - lineAscent - lineLeading;
+    
     CGPathRelease(path);
     CFRelease(framesetter);
     CFRelease(textFrame);
