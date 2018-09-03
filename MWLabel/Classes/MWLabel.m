@@ -278,7 +278,7 @@
     if (_canLongPressToCopy && !_savedBackgroundColor) {
         //保存原始背景色
         _savedBackgroundColor = self.backgroundColor;
-        self.backgroundColor = [UIColor colorWithRed:.8 green:.8 blue:.8 alpha:1];
+        self.backgroundColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1];
     }
 }
 

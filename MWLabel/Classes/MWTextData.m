@@ -38,7 +38,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         _linkDicts = [NSMutableArray array];
         _defaultColor = [UIColor blackColor];
         _defaultFont = [UIFont systemFontOfSize:16.f];
-        _characterSpacing = 1.f;
+        _characterSpacing = .5f;
         _lineSpacing = 2.f;
         _paragraphSpacing = 2.f;
         _numberOfLines = 1;
@@ -171,7 +171,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         CTLineRef line = (__bridge CTLineRef)(lines[[lines count]-1]);
         
         CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-        _height = maxHeight - line_y + lineDescent + 1;
+        _height = ceilf(maxHeight - line_y + lineDescent);
         
         CGPathRelease(path);
         CFRelease(framesetter);
@@ -210,21 +210,22 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
     CGPoint origins[[lines count]];
     CTFrameGetLineOrigins(textFrame, CFRangeMake(0, 0), origins);
     
-    CGFloat line_y = origins[maxLine].y;
+    CGFloat line_y = origins[maxLine-1].y;
     
-    CGFloat lineAscent;
-    CGFloat lineDescent;
-    CGFloat lineLeading;
+    CGFloat lastLineAscent;
+    CGFloat lastLineDescent;
+    CGFloat lastLineLeading;
     
-    CTLineRef line = (__bridge CTLineRef)(lines[maxLine]);
+    //根据多次试验，lineDescent取最后一行的进行计算最为准确，不会出现计算误差的问题
+    CTLineRef lastLine = (__bridge CTLineRef)(lines[[lines count]-1]);
     
-    CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-    CGFloat height = maxHeight - line_y - lineAscent + lineLeading + 1;
+    CTLineGetTypographicBounds(lastLine, &lastLineAscent, &lastLineDescent, &lastLineLeading);
+    CGFloat height = ceilf(maxHeight - line_y + lastLineDescent);
     
     CGPathRelease(path);
     CFRelease(framesetter);
     CFRelease(textFrame);
-    return ceilf(height);
+    return height;
 }
 
 #pragma mark - 添加属性
