@@ -171,7 +171,7 @@ NSString *const kMWLinkAttributeNameBlock   = @"block";
         CTLineRef line = (__bridge CTLineRef)(lines[[lines count]-1]);
         
         CTLineGetTypographicBounds(line, &lineAscent, &lineDescent, &lineLeading);
-        _height = maxHeight - line_y + ceilf(lineDescent) + 1;
+        _height = maxHeight - line_y + lineDescent + 1;
         
         CGPathRelease(path);
         CFRelease(framesetter);
