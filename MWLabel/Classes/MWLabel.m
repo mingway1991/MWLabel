@@ -21,7 +21,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor whiteColor];
         [self attachTapHandler];
         _canLongPressToCopy = YES;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuItemHidden:)name:UIMenuControllerWillHideMenuNotification object:nil];
